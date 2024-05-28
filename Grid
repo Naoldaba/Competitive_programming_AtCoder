@@ -1,0 +1,21 @@
+n, m = map(int, input().split())
+grid=[]
+for _ in range(n):
+    row=list(input())
+    grid.append(row)
+    
+# print(grid)
+dp=[[0 for _ in range(m)] for _ in range(n)]
+dp[-1][-1]=1
+
+def valid(i,j):
+    if 0<=i<n and 0<=j<m and grid[i][j]=='.': 
+        return dp[i][j]
+    return 0
+
+for i in range(n-1, -1, -1):
+    for j in range(m-1, -1, -1):
+        dp[i][j] += valid(i+1, j) + valid(i, j+1)
+
+MOD=10**9+7
+print(dp[0][0]%MOD)
